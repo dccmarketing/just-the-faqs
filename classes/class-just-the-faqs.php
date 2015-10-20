@@ -233,11 +233,10 @@ class Just_The_FAQs {
 		// Loop
 		$this->loader->action( 'just-the-faqs-before-loop', 		$plugin_templates, 'loop_wrap_start', 10, 1 );
 		$this->loader->action( 'just-the-faqs-before-loop-content', $plugin_templates, 'loop_content_wrap_start', 10, 2 );
-		$this->loader->action( 'just-the-faqs-before-loop-content', $plugin_templates, 'loop_content_link_start', 15, 3 );
-		$this->loader->action( 'just-the-faqs-loop-content', 		$plugin_templates, 'loop_content_image', 10, 2 );
-		$this->loader->action( 'just-the-faqs-loop-content', 		$plugin_templates, 'loop_content_name', 15, 2 );
-		$this->loader->action( 'just-the-faqs-loop-content', 		$plugin_templates, 'loop_content_job_title', 20, 2 );
-		$this->loader->action( 'just-the-faqs-after-loop-content', 	$plugin_templates, 'loop_content_link_end', 10, 2 );
+		$this->loader->action( 'just-the-faqs-loop-content', 		$plugin_templates, 'loop_content_link_start', 10, 3 );
+		$this->loader->action( 'just-the-faqs-loop-content', 		$plugin_templates, 'loop_content_question', 15, 2 );
+		$this->loader->action( 'just-the-faqs-loop-content', 		$plugin_templates, 'loop_content_link_end', 20, 2 );
+		$this->loader->action( 'just-the-faqs-loop-content', 		$plugin_templates, 'loop_content_answer', 25, 2 );
 		$this->loader->action( 'just-the-faqs-after-loop-content', 	$plugin_templates, 'loop_content_wrap_end', 90, 2 );
 		$this->loader->action( 'just-the-faqs-after-loop', 			$plugin_templates, 'loop_wrap_end', 10, 1 );
 

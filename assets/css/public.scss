@@ -1,0 +1,20 @@
+/**
+ * All of the CSS for your public-facing functionality should be
+ * included in this file.
+ */
+
+.list-questions {
+	list-style 	: none;
+	margin 		: 0;
+	padding 	: 0;
+}
+
+.question {
+	h3 {
+		margin: 0;
+	}
+}
+
+.question-list-answer {
+	display: none;
+}

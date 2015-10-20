@@ -82,7 +82,7 @@ class Just_The_FAQs_Public {
 	 */
 	public function enqueue_styles() {
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/classes.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/public.css', array(), $this->version, 'all' );
 
 	}
 
@@ -93,7 +93,7 @@ class Just_The_FAQs_Public {
 	 */
 	public function enqueue_scripts() {
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/classes.min.js', array( 'jquery' ), $this->version, true );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/public.min.js', array( 'jquery' ), $this->version, true );
 
 	}
 
@@ -126,6 +126,50 @@ class Just_The_FAQs_Public {
 
 	} // get_cache_name()
 
+	/**
+	 * Processes the shortcode
+	 *
+	 * @param 	array 		$atts 			Attributes from the shortocde
+	 * @return 	mixed 						The shortocde output
+	 */
+	public function shortcode_justthefaqs( $atts = array() ) {
+
+		ob_start();
+
+		$defaults['topic'] 			= '';
+		$defaults['loop-template'] 	= $this->plugin_name . '-loop';
+		$defaults['order'] 			= 'ASC';
+		$defaults['quantity'] 		= 100;
+		$args 						= shortcode_atts( $defaults, $atts, 'justthefaqs' );
+		$items						= $this->query( $args, 'faqs' );
+
+		if ( is_array( $items ) || is_object( $items ) ) {
+
+			$include = just_the_faqs_get_template( $args['loop-template'] );
+
+			include $include;
+
+		} else {
+
+			echo $items;
+
+		}
+
+		$output = ob_get_contents();
+
+		ob_end_clean();
+
+		return $output;
+
+	} // shortcode_justthefaqs()
+
+	/**
+	 * Returns the results of the WP_Query
+	 *
+	 * @param  array  $params [description]
+	 * @param  string $cache  [description]
+	 * @return [type]         [description]
+	 */
 	private function query( $params = array(), $cache = '' ) {
 
 		$return 	= '';
@@ -134,7 +178,7 @@ class Just_The_FAQs_Public {
 
 		if ( false === $return ) {
 
-			$args 	= apply_filters( $this->plugin_name . '-query-args', $args );
+			$args 	= apply_filters( $this->plugin_name . '-query-args', $this->set_args( $params ) );
 			$query 	= new WP_Query( $args );
 
 			if ( is_wp_error( $query ) && empty( $query ) ) {
@@ -146,7 +190,7 @@ class Just_The_FAQs_Public {
 
 				wp_cache_set( $cache_name, $query, $this->plugin_name . '_posts', 5 * MINUTE_IN_SECONDS );
 
-				$return = $query;
+				$return = $query->posts;
 
 			}
 
@@ -229,42 +273,5 @@ class Just_The_FAQs_Public {
 		$this->options = get_option( $this->plugin_name . '-options' );
 
 	} // set_options()
-
-	/**
-	 * Processes the shortcode
-	 *
-	 * @param 	array 		$atts 			Attributes from the shortocde
-	 * @return 	mixed 						The shortocde output
-	 */
-	private function shortcode_justthefaqs( $atts = array() ) {
-
-		ob_start();
-
-		$defaults['topic'] 			= '';
-		$defaults['loop-template'] 	= $this->plugin_name . '-loop';
-		$defaults['order'] 			= 'ASC';
-		$defaults['quantity'] 		= 100;
-		$args 						= shortcode_atts( $defaults, $atts, 'justthefaqs' );
-		$items						= $this->query( $args, 'faqs' );
-
-		if ( is_array( $items ) || is_object( $items ) ) {
-
-			$include = just_the_faqs_get_template( $args['loop-template'] );
-
-			include $include;
-
-		} else {
-
-			echo $items;
-
-		}
-
-		$output = ob_get_contents();
-
-		ob_end_clean();
-
-		return $output;
-
-	} // shortcode_justthefaqs()
 
 } // class

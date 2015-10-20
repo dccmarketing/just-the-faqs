@@ -73,18 +73,18 @@ class Just_The_FAQs_Templates {
 	} // __construct()
 
 	/**
-	 * Includes the question content (aka answer)
+	 * Includes the question template file
 	 *
-	 * @hooked 		just-the-faqs-loop-content 		10
+	 * @hooked 		just-the-faqs-loop-content 		15
 	 *
 	 * @param 		object 		$item 		A post object
 	 * @param 		array 		$meta 		The post metadata
 	 */
-	public function loop_content_image( $item, $meta ) {
+	public function loop_content_answer( $item, $meta ) {
 
 		include just_the_faqs_get_template( 'loop-content-answer' );
 
-	} // loop_content_image()
+	} // loop_content_answer()
 
 	/**
 	 * Includes the link end template file
@@ -122,11 +122,11 @@ class Just_The_FAQs_Templates {
 	 * @param 		object 		$item 		A post object
 	 * @param 		array 		$meta 		The post metadata
 	 */
-	public function loop_content_name( $item, $meta ) {
+	public function loop_content_question( $item, $meta ) {
 
 		include just_the_faqs_get_template( 'loop-content-question' );
 
-	} // loop_content_name()
+	} // loop_content_question()
 
 	/**
 	 * Includes the content wrap end template file

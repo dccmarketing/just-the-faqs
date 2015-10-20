@@ -38,9 +38,8 @@ foreach ( $items as $item ) {
 		 *
 		 * @param 		object  	$item 		The post object
 		 *
-		 * @hooked		loop_content_image 			10
-		 * @hooked 		loop_content_name 			15
-		 * @hooked 		loop_content_job_title 		20
+		 * @hooked 		loop_content_question 		15
+		 * @hooked 		loop_content_answer 		20
 		 */
 		do_action( 'just-the-faqs-loop-content', $item, $meta );
 
